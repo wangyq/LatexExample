@@ -1,0 +1,213 @@
+\documentclass[11pt]{article}
+
+\usepackage{fullpage}
+\usepackage{graphicx,epsfig}
+
+
+\begin{document}
+
+\title{{\bf Greedy Algorithms}\\ \normalsize{CLRS 16.1-16.2}}
+
+
+\date{}
+
+\maketitle
+
+
+
+\section{Greedy Algorithms}
+\begin{itemize}
+\item We have previously discussed how to speed up optimization
+problems using the technique of \emph{dynamic programming}:
+  \begin{itemize}
+  \item The problem must have the \emph{optimal substructure
+    property}: the optimal solution to the problem contains within it
+optimal solutions to smaller subproblems.
+\item Typically the number of different subproblems is polynomial, but
+the recursive algorithm implementing the recursive formulation of the
+problem is exponential. This is because of overlapping calls to same
+subproblem.
+\item Idea: If same subproblem is solved several times, use table to
+    store result of a subproblem the first time it is computed and
+    never compute it again.
+  \item Alternatively, we can think about filling up a table of
+    subproblem solutions from the bottom.
+  \end{itemize}
+
+\item A further technique that can be used for optimizitaion problems
+  (that uses the same feature of optimal substructure) is {\em
+    greediness}.
+\item Some problems that are solved by dynamic programmic can be
+  further speeded up by making a greedy choice
+
+\item We are only interested in Greedy algorithms if we can prove they
+  lead to the globally optimal solution.
+
+\item Like in the case of dynamic programming, we will introduce
+greedy algorithms via an example.
+\end{itemize}
+
+\subsection{Activity Selection}
+\begin{itemize}
+\item Problem: Given a set $A = \{A_1,A_2, \cdots ,A_n \}$ of $n$
+activities with start and finish times $(s_i,f_i)$, $1 \leq i \leq n$,
+select maximal set $S$ of ``non-overlapping'' activities.
+        \begin{itemize}
+        \item One can think of the problem as corresponding to scheduling
+        the maximal number of classes (given their start and finish times)
+        in one classroom.
+        \end{itemize}
+\item Dynamic programming solution: $O(n^3)$ read the textbook.
+\item Greedy solution:
+        \begin{itemize}
+        \item Sort activity by finish time (let $A_1,A_2, \cdots ,A_n$
+        denote sorted sequence)
+        \item Pick first activity $A_1$
+        \item Remove all activities with start time before finish time of $A_1$
+        \item Recursively solve problem on remaining activities. 
+        \end{itemize}
+
+
+\item Program: \\ \\
+\fbox{
+\parbox{6cm}{
+        \begin{itemize}
+        \item[] Sort $A$ by finish time
+        \item[] $S = \{A_1\}$
+        \item[] $j=1$
+        \item[] FOR $i=2$ to $n$ DO 
+                \begin{itemize}
+                \item[] IF $s_i \geq f_j$ THEN
+                        \begin{itemize}
+                        \item[] $S = S \cup \{A_i\}$
+                        \item[] $j=i$
+                        \end{itemize}
+                \item[] FI
+                \end{itemize}
+        \item[] OD
+        \end{itemize}
+}}
+
+\item Example:
+        \begin{itemize}
+        \item $11$ activities sorted by finish time: $(1,4),(3,5),(0,6),(5,7),(3,8),(5,9), \\
+        (6,10),(8,11),(8,12),(2,13),(12,14)$ \\ \\
+        %\includegraphics[height=13cm]{activity_example.pdf}
+        \end{itemize}
+\item Running time is obviously $O(n\log n)$.
+
+
+\item Is algorithm correct?
+        \begin{itemize}
+        \item Output is set of non-overlapping activities, but is it the
+        largest possible?
+        \end{itemize}
+\item Proof of correctness:
+        \begin{itemize}
+        \item Given activities $A = \{A_1,A_2, \cdots ,A_n \}$ ordered
+        by finish time, there is an optimal solution containing $A_1$:
+                \begin{itemize}
+                \item Suppose $S \subseteq A$ is optimal solution
+                \item If $A_1 \in S$, we are done
+                \item If $A_1 \notin S$:
+                        \begin{itemize}
+                        \item Let first activity in $S$ be $A_k$
+                        \item Make new solution $S \setminus \{A_k \}
+                        \cup \{ A_1 \}$ by removing $A_k$ and using $A_1$
+                        instead
+                        \item This is valid solution $(f_1 < f_k)$ of
+                        maximal size $( \vert S \setminus \{A_k \}
+                        \cup \{ A_1 \} \vert = \vert S \vert)$
+                        \end{itemize}
+                \end{itemize}
+        \item $S$ is an optimal solution for $A$ containing $A_1
+        \Rightarrow S' = S \setminus \{A_1 \}$ optimal solution for 
+        $A' = \{ A_i \in A: s_j \geq f_1 \}$ (e.g. after choosing $A_1$ the
+        problem reduces to finding optimal solution for activities not
+        overlapping with $A_1$)
+                \begin{itemize}
+                \item Suppose we have solution $S''$ to $A'$ such that
+                $\vert S'' \vert > \vert S' \vert = \vert S \vert - 1$
+                \item $S''' = S'' \cup \{ A_1 \}$ would be solution to $A$
+                \item Contradiction since we would have $\vert S''' \vert >
+                \vert S \vert$
+                \end{itemize}
+        \item Correctness follows by induction on size of $S$
+        \end{itemize}
+\end{itemize}
+
+
+\section{Comparison of greedy technique with dynamic programming}
+
+\begin{itemize}
+\item Both techniques use optimal substructure (optimal solution
+  ``contains optimal solution for subproblems within it'').
+\item In dynamic programming, solution depends on solution to
+  subproblems.That is, compute the optimal solutions for each possible
+  choice and thencompute the optimal way to combine things together.
+\item In greedy algorithm we choose what looks like best solution at
+  any given moment and recurse (choice does not depend on solution to
+  subproblems).
+
+
+Note: Shortsightedness: Always go for seemingly next best thing,
+optimizing the present without regard for the future, and never change
+past choices.
+
+
+\item Any problem that can be solved by a greedy algorithm can be
+solved by dynamic programming, but not the other way around.
+
+\item It is often hard to figure out when being greedy works!
+
+\item How do we know if being greedy works?  Try dynamic programming
+first and understand the choices. Try to find out if there is a
+locally best choice, i.e. a choice that looks better than the others
+(without computing recursive solutions to subproblems). Now try to
+prove that it works correctly.
+
+\item Greedy correctness proof: It is enough to prove that there
+exists an optimal solution which contains the greedy choice.  That is,
+prove that, having made the greedy choice, what remains is a
+subproblem with the property that if we combine the optimal solution
+to the subproblem with the greedy choice, we get an optimal solution
+for the original problem.  Typically this is proved by contradiction.
+\end{itemize}
+  
+
+Example:
+\begin{itemize}
+\item {\sc $0-1$ knapsack problem}: Given $n$ items, with item $i$
+  being worth \$ $v_i$  and having weight $w_i$ pounds, fill knapsack of
+  capacity $w$ pounds with maximal value.
+  
+\item {\sc Fractional knapsack problem}: As {\sc $0-1$ knapsack
+  problem} but we can take fractions of items.
+\item Problems appear very similar, but only {\sc fractional
+  knapsack problem} can be solved greedily:
+  \begin{itemize}
+  \item Compute value per pound $\frac{v_i}{w_i}$ for each item
+  \item Sort items by value per pound.
+  \item Fill knapsack greedily (take objects in order) \\
+    $\Downarrow$ \\
+    $O(n\log n)$ time, easy to show that solution is optimal.
+  \end{itemize}
+  
+\item Example that {\sc $0-1$ knapsack problem} cannot be solved
+  greedily: \\ \\
+  %\centerline{\includegraphics[height=4.5cm]{knapsack_example.pdf}} \\
+  
+  Note: In {\sc fractional knapsack problem} we can take
+  $\frac{2}{3}$ of $\$120$ object and get $\$240$ solution.
+
+
+\item {\sc $0-1$ knapsack problem} can be solved in time $O(n \cdot w)$
+  using dynamic-programming (homework).
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}
+
+

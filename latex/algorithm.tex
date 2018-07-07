@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{caption}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage{enumerate}
+
+%\usepackage{fontspec,xunicode,xltxtra}
+%\setmainfont[BoldFont=Microsoft YaHei]{FangSong_GB2312}
+%\setsansfont[BoldFont=Microsoft YaHei]{KaiTi_GB2312}
+%\setmonofont{Bitstream Vera Sans Mono}
+%\XeTeXlinebreaklocale "zh"  %
+%\XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
+%\newcommand\li{\fontspec{LiSu}}
+%\newcommand\hei{\fontspec{SimHei}}
+%\newcommand\you{\fontspec{YouYuan}}
+%\newcommand\sun{\fontspec{SimSun}}
+%\newcommand\fangsong{\fontspec{仿宋_GB2312}}
+%\newcommand\kai{\fontspec{KaiTi_GB2312}}
+%%\numberwithin
+%%\numberwithin{equation}{section}
+
+\begin{document}
+	\begin{algorithm}
+		\caption{A test algorithm (Part I)}
+		\begin{algorithmic}[1]
+			\Procedure {BellmanKalaba}{$G$, $u$, $l$, $p$}
+			\ForAll {$v \in V(G)$}
+			\State $l(v) \leftarrow \infty$
+			\EndFor
+			\algstore{bkbreak}
+		\end{algorithmic}
+	\end{algorithm}
+	
+	\begin{algorithm}
+		\caption*{A test algorithm (Part II)}
+		\begin{algorithmic}[1]
+			\algrestore{bkbreak}
+			\State $p(i) \leftarrow v_j$
+			\State $l’(i) \leftarrow min$
+			\State $changed \leftarrow l \not= l’$
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
+	
+
+\begin{enumerate}[i)]
+\item Xidian
+\item Computer
+\item Application
+\end{enumerate}
+
+	%\begin{algorithm}
+	%  \caption*{线搜索技术算法}
+	%  \begin{algorithmic}[1]
+	%  \State 计算$g_{k}=-\nabla f(x_{k})$，若$\parallel g_{k}\parallel<\epsilon$，则以$x_{k}$作为极小点，停止迭代
+	%  \State 确定下降方法$d_{k}$
+	%  \State 用精确搜索或非精确搜索方法确定搜索方向$\alpha_{k}$
+	%  \State 更新迭代点$x_{k+1}=x_{k}+\alpha_{k}d_{k}$,$k=k+1$，转至步1
+	%  \end{algorithmic}
+	%\end{algorithm}
+	%
+	
+Hello.
+	
+\end{document}

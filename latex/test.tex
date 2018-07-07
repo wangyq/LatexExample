@@ -1,0 +1,87 @@
+ %!TEX program = xelatex
+ % 使用 ctexart 文类，UTF-8 编码
+\documentclass[UTF8]{ctexart}
+
+    \usepackage{epsfig}
+    
+    %\usepackage{algorithm2e}
+    %\usepackage[linesnumbered]{algorithm2e}
+    %\usepackage[linesnumbered,ruled]{algorithm2e}
+    \usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+    
+
+    %% for mathematics use
+    \usepackage{latexsym,amssymb,amsmath}
+
+    %% for Source Code use
+    % sourcecode for color
+  \usepackage{xcolor,inconsolata}
+  \newcommand{\Cpp}{C\texttt{++}}
+
+  %% listing for source code
+  \usepackage{listings}
+
+  \lstset{
+  language = C++,
+  basicstyle = \ttfamily,
+  keywordstyle = \color{blue}\textbf,
+  commentstyle = \color{gray},
+  stringstyle = \color{green!70!black},
+  stringstyle = \color{red},
+  columns = fullflexible,
+  numbers = left,
+  numberstyle = \scriptsize\sffamily\color{gray},
+  caption = A hello world program in \Cpp,
+  xleftmargin = 0.16\textwidth,
+  xrightmargin = 0.16\textwidth,
+  showstringspaces = false,
+  float,
+  }
+
+
+\title{测试}
+\author{Yinqing Wang}
+\date{\today}
+ 
+\begin{document}
+\maketitle
+ 
+\section{数学公式示例}
+This is the context of the article.
+ 
+这就是文章的所有内容。
+
+\section{算法示例}
+
+\begin{algorithm}
+    \DontPrintSemicolon
+    \SetAlgoLined
+
+    \caption{Simulation-optimization heuristic}\label{algorithm}  
+    \KwData{current period $t$, initial inventory $I_{t-1}$, initial capital $B_{t-1}$, demand samples}  
+    \KwResult{Optimal order quantity $Q^{\ast}_{t}$}  
+    $r\leftarrow t$\;  
+    $\Delta B^{\ast}\leftarrow -\infty$\;  
+    \While{$\Delta B\leq \Delta B^{\ast}$ and $r\leq T$}{$Q\leftarrow\arg\max_{Q\geq 0}\Delta B^{Q}_{t,r}(I_{t-1},B_{t-1})$\;  
+    $\Delta B\leftarrow \Delta B^{Q}_{t,r}(I_{t-1},B_{t-1})/(r-t+1)$\;  
+    \If{$\Delta B\geq \Delta B^{\ast}$}{$Q^{\ast}\leftarrow Q$\;  
+    $\Delta B^{\ast}\leftarrow \Delta B$\;}  
+    $r\leftarrow r+1$\;}  
+\end{algorithm}  
+    
+
+\section{源代码示例}
+
+Following is the C++ source code example of "Hello, world!"
+
+%\begin{lstlisting}[language = C++]
+\begin{lstlisting}
+    // include standard input/output stream objects:
+    #include <iostream>
+    // the main method:
+    int main() {
+    std::cout << "Hello TeX world!" << std::endl;
+    }
+\end{lstlisting}
+
+\end{document}
