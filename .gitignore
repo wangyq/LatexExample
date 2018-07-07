@@ -1,0 +1,35 @@
+# Windows:
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Python:
+*.py[cod]
+*.so
+*.egg
+*.egg-info
+dist
+build
+
+# latex:
+*.aux
+*.log
+*.out
+*.lof
+*.lol
+*.lot
+*.pdf
+*.gz
+*.toc
+*.bbl
+*.bak
+*.blg
+*.thm
+*.toc
+
+
+# My configurations:
+db.ini
+deploy_key_rsa
+/main.dvi
+/tmp/
