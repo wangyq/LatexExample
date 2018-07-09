@@ -26,7 +26,8 @@ build
 *.blg
 *.thm
 *.toc
-
+*.synctex.gz
+*.pre
 
 # My configurations:
 db.ini
